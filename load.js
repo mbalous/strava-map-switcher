@@ -37,9 +37,7 @@
 		? Promise.resolve(null)
 		: getScript(getURL('3rd/jquery-3.5.1.min.js')).then(() => jQuery.noConflict());
 	const loadGoogleMaps = () => Promise.reject(new Error("Google Maps disabled in the store version"));
-	const loadGoogleMutant = () => (window.L && window.L.Class)
-		? getScript(getURL('3rd/Leaflet.GoogleMutant.js'))
-		: Promise.resolve(null);
+	const loadGoogleMutant = () => Promise.reject(new Error("Google Maps disabled in the store version"));
 
 	loadJQuery().then(() => Promise.all([
 		getScript(getURL('arrive.min.js')),
@@ -48,8 +46,8 @@
 		getScript(getURL('donation.js')),
 		ignoreError(loadGoogleMaps().then(() => Promise.all([
 			loadGoogleMutant(),
-			getScript(getURL('3rd/leaflet-pegman.min.js')),
-			getCSS(getURL('3rd/leaflet-pegman.min.css')),
+			//getScript(getURL('3rd/leaflet-pegman.min.js')),
+			//getCSS(getURL('3rd/leaflet-pegman.min.css')),
 		]))),
 	])).then(function () {
 		getScript(getURL('fix.js'));
